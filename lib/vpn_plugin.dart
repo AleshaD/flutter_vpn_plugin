@@ -20,7 +20,7 @@ abstract class VpnPlugin {
   }
 
   static Future get connectedServer =>
-      VpnPluginPlatform.instance.connectedServer;
+      VpnPluginPlatform.instance.configuredServerAddress;
 
   static Future<VpnState> get currentState =>
       VpnPluginPlatform.instance.currentState;
@@ -33,4 +33,7 @@ abstract class VpnPlugin {
 
   static Stream<VpnState> get onStateChanged =>
       VpnPluginPlatform.instance.onStateChanged;
+
+  static Stream get onError =>
+      VpnPluginPlatform.instance.onError;
 }

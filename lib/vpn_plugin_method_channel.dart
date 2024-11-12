@@ -16,19 +16,23 @@ class MethodChannelVpnPlugin extends VpnPluginPlatform {
   final errorsChannel = const EventChannel('errors_channel');
 
   @override
-  Future<void> connect(
-      {required String server,
-      required String username,
-      required String password,
-      String? name,
-      int? mtu,
-      int? port}) {
-    throw UnimplementedError();
+  Future<void> connect({
+    required String server,
+    required String username,
+    required String password,
+    String? name,
+  }) async {
+    await methodChannel.invokeMethod('connect', {
+      'Server': server,
+      'Username': username,
+      'Password': password,
+      'Name': name ?? server,
+    });
   }
 
   @override
-  Future<String?> get connectedServer =>
-      methodChannel.invokeMethod('getConnectedServer');
+  Future<String?> get configuredServerAddress =>
+      methodChannel.invokeMethod('getConfiguredServerAddress');
 
   @override
   Future<VpnState> get currentState async {

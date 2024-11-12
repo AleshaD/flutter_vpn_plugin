@@ -45,15 +45,13 @@ abstract class VpnPluginPlatform extends PlatformInterface {
     required String username,
     required String password,
     String? name,
-    int? mtu,
-    int? port,
   });
 
   /// Check is vpn enabled
   Future<bool> get isEnabled;
 
   /// Get connected config
-  Future<String?> get connectedServer;
+  Future<String?> get configuredServerAddress;
 
   Stream<dynamic> get onError;
 }

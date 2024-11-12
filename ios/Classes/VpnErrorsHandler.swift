@@ -1,31 +1,31 @@
 //
-//  VpnStateHandler.swift
+//  VpnErrorsHandler.swift
 //  vpn_plugin
 //
-//  Created by Aleksey Shadrov on 11.11.2024.
+//  Created by Aleksey Shadrov on 12.11.2024.
 //
 
 import Foundation
 import Flutter
 
-class VPNStateHandler: FlutterStreamHandler {
+class VpnErrorsHandler: FlutterStreamHandler {
     static var _sink: FlutterEventSink?
-
-    static func updateState(_ newState: Int) {
+    
+    static func sendError(code: String, errorMsg: String? = nil) {
         guard let sink = _sink else {
             return
         }
-
-        sink(newState)
+        
+        sink(FlutterError(code: code, message: errorMsg, details: nil))
     }
 
     func onListen(withArguments _: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
-        VPNStateHandler._sink = events
+        VpnErrorsHandler._sink = events
         return nil
     }
 
     func onCancel(withArguments _: Any?) -> FlutterError? {
-        VPNStateHandler._sink = nil
+        VpnErrorsHandler._sink = nil
         return nil
     }
 }
