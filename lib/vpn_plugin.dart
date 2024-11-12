@@ -8,8 +8,6 @@ abstract class VpnPlugin {
     required String username,
     required String password,
     String? name,
-    int? mtu,
-    int? port,
   }) async {
     VpnPluginPlatform.instance.connect(
       server: server,
@@ -19,7 +17,7 @@ abstract class VpnPlugin {
     );
   }
 
-  static Future get connectedServer =>
+  static Future<String?> get configuredServerAddress =>
       VpnPluginPlatform.instance.configuredServerAddress;
 
   static Future<VpnState> get currentState =>
