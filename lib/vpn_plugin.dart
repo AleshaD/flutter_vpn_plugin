@@ -32,6 +32,6 @@ abstract class VpnPlugin {
   static Stream<VpnState> get onStateChanged =>
       VpnPluginPlatform.instance.onStateChanged;
 
-  static Stream get onError =>
+  static Stream<String> get onError =>
       VpnPluginPlatform.instance.onError;
 }

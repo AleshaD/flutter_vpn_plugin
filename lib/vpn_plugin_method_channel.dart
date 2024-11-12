@@ -56,5 +56,5 @@ class MethodChannelVpnPlugin extends VpnPluginPlatform {
       eventChannel.receiveBroadcastStream().map((e) => VpnState.values[e]);
 
   @override
-  Stream get onError => errorsChannel.receiveBroadcastStream();
+  Stream<String> get onError => errorsChannel.receiveBroadcastStream().map((e) => e.toString());
 }
