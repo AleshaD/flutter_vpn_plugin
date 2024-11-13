@@ -57,4 +57,11 @@ class MethodChannelVpnPlugin extends VpnPluginPlatform {
 
   @override
   Stream<String> get onError => errorsChannel.receiveBroadcastStream().map((e) => e.toString());
+  
+  @override
+  Future<DateTime?> get connectedStartDate async {
+    final startDate = await methodChannel.invokeMethod<String?>('getConnectedStartDateIso8601');
+
+    return startDate != null ? DateTime.parse(startDate) : null;
+  }
 }

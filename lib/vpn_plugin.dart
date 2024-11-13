@@ -29,9 +29,11 @@ abstract class VpnPlugin {
 
   static Future<bool> get isEnabled => VpnPluginPlatform.instance.isEnabled;
 
+  static Future<DateTime?> get connectedStartDate =>
+      VpnPluginPlatform.instance.connectedStartDate;
+
   static Stream<VpnState> get onStateChanged =>
       VpnPluginPlatform.instance.onStateChanged;
 
-  static Stream<String> get onError =>
-      VpnPluginPlatform.instance.onError;
+  static Stream<String> get onError => VpnPluginPlatform.instance.onError;
 }

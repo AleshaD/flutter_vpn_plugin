@@ -53,5 +53,8 @@ abstract class VpnPluginPlatform extends PlatformInterface {
   /// Get connected config
   Future<String?> get configuredServerAddress;
 
+  /// Get connected start date
+  Future<DateTime?> get connectedStartDate;
+
   Stream<String> get onError;
 }

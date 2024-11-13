@@ -32,12 +32,30 @@ class VpnService {
             vpnManager.protocolConfiguration?.serverAddress
         }
     }
+
+    var connectedStartDateIso8601: String? {
+        guard vpnManager.connection.connectedDate != nil else {
+            return nil
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ" // ISO 8601 формат
+        let dateString = formatter.string(from: vpnManager.connection.connectedDate!)
+
+        return dateString
+    }
     
     let kcs = KeychainService()
     
     var needToReconnect = false;
     
     init() {
+        vpnManager.loadFromPreferences(completionHandler: {(error: Error?) -> Void in
+            guard error == nil else {
+                self.sendPreferencesError(msg: error?.localizedDescription)
+                return
+            }
+        })
         NotificationCenter.default.addObserver(forName: NSNotification.Name.NEVPNStatusDidChange, object: nil, queue: OperationQueue.main, using: statusChanged)
     }
     
@@ -138,7 +156,7 @@ class VpnService {
                 
                 let msg = "Start error: \(errorStr)"
                 debugPrint(msg)
-                VpnErrorsHandler.sendError(code: "VPN_Connection", errorMsg: msg)
+                VpnErrorsHandler.sendError(code: "Vpn Error. Connection.", errorMsg: msg)
                 return;
             }
             
@@ -151,7 +169,7 @@ class VpnService {
     }
     
     func sendPreferencesError(msg: String?) {
-        VpnErrorsHandler.sendError(code: "VPN_Preferences", errorMsg: msg)
+        VpnErrorsHandler.sendError(code: "Vpn Error. Preferences.", errorMsg: msg)
     }
     
     func statusChanged(_: Notification?) {

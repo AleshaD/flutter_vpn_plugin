@@ -15,8 +15,10 @@ class VpnErrorsHandler: FlutterStreamHandler {
         guard let sink = _sink else {
             return
         }
+    
+        let details = errorMsg == nil ? "" : " details: \(errorMsg)"
         
-        sink("\(code)_\(errorMsg ?? "")")
+        sink("\(code) \(details)")
     }
 
     func onListen(withArguments _: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {

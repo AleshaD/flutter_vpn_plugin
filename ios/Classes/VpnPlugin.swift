@@ -22,6 +22,8 @@ public class VpnPlugin: NSObject, FlutterPlugin {
             result(VpnService.shared.configuredServerAddress)
         case "getCurrentState":
             result(VpnService.shared.vpnStatus.rawValue)
+        case "getConnectedStartDateIso8601":
+            result(VpnService.shared.connectedStartDateIso8601)
         case "connect":
             let args = call.arguments! as! [NSString: NSString]
             VpnService.shared.connect(
